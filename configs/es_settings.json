@@ -1,0 +1,389 @@
+{
+	"host_url": "http://localhost",
+	"host_port": "9200",
+	"shield_authentication": false,
+	"bulk_insert_rate": 3000,
+	"index_name": "ppd",
+	"document_name_field_key": "dokument_namn",
+	"index_settings": {
+		"analysis": {
+			"filter": {
+				"custom_shingle_filter": {
+					"type": "shingle",
+					"min_shingle_size": 2,
+					"max_shingle_size": 5
+				}
+			},
+			"analyzer": {
+				"custom_shingle_analyzer": {
+					"type": "custom",
+					"tokenizer": "standard",
+					"language": "swedish",
+					"filter": [
+						"lowercase",
+						"custom_shingle_filter"
+					],
+					"char_filter" : [
+						"html_strip"
+					]
+				},
+				"custom_html_analyzer": {
+					"type": "custom",
+					"tokenizer" : "standard",
+					"language": "swedish",
+					"filter" : [
+						"standard",
+						"lowercase",
+						"stop",
+						"asciifolding"
+					],
+					"char_filter" : [
+						"html_strip"
+					]
+				}
+			}	
+		}
+	},
+	"document_types": [
+		{
+			"name": "type_anforande",
+			"data_folder": "anföranden",
+			"ignore_initial_key": "anforande",
+			"mappings": {
+				"properties": {
+					"anforande_id": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"anforande_nummer": { 
+						"type": "integer" 
+					},
+					"anforandetext": {
+						"type": "multi_field",
+						"fields": {
+							"anforandetext": {
+								"include_in_all": "true",
+								"type": "string",
+								"analyzer": "swedish"
+							},
+							"anforandetext_shingles": {
+								"include_in_all": "false",
+								"type": "string",
+								"analyzer": "custom_shingle_analyzer"
+							}
+						}
+						
+					},
+					"avsnittsrubrik": {
+						"type": "multi_field",
+						"fields": {
+							"avsnittsrubrik": {
+								"include_in_all": "true",
+								"type": "string",
+								"analyzer": "swedish"
+							},
+							"avsnittsrubrik_not_analyzed": {
+								"include_in_all": "false",
+								"type": "string",
+								"index": "not_analyzed"
+							}
+						}
+					},
+					"dokument_namn": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dok_datum": {
+						"type": "date",
+						"format": "YYYY-MM-DD HH:mm:ss"
+					},
+					"dok_hangar_id": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dok_id": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dok_nummer": {
+						"type": "integer"
+					},
+					"dok_rm": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dok_titel": {
+						"type": "multi_field",
+						"fields": {
+							"dok_titel": {
+								"include_in_all": "true",
+								"type": "string",
+								"analyzer": "swedish"
+							},
+							"dok_titel_not_analyzed": {
+								"include_in_all": "false",
+								"type": "string",
+								"index": "not_analyzed"
+							}
+						}
+					},
+					"intressent_id": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"kammaraktivitet": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"parti": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"rel_dok_id": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"replik": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"systemdatum": {
+						"type": "date",
+						"format": "YYYY-MM-DD HH:mm:ss"
+					},
+					"talare": {
+						"type": "string",
+						"index": "not_analyzed"
+					}
+				}
+			}
+		},
+		{
+			"name": "type_motion",
+			"data_folder": "motioner",
+			"ignore_initial_key": "dokumentstatus",
+			"mappings": {
+				"properties": {
+					"debatt": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dokument_namn": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dokaktivitet": {
+						"type": "nested",
+						"properties": {
+							"aktivitet": {
+								"properties": {
+									"kod": { "type": "string", "index": "not_analyzed" },
+									"datum": { "type": "date", "format": "YYYY-MM-DD HH:mm:ss" },
+									"status": { "type": "string", "index": "not_analyzed" },
+									"process": { "type": "string", "index": "not_analyzed" },
+									"namn": { "type": "string", "index": "not_analyzed" },
+									"ordning": { "type": "string", "index": "not_analyzed" }
+								}
+							}
+						}
+					},
+					"dokbilaga": {
+						"type": "string",
+						"index": "not_analyzed"
+					},
+					"dokforslag": {
+						"type": "nested",
+						"properties": {
+							"forslag": {
+								"properties": {
+									"behandlas_i": { "type": "string", "index": "not_analyzed" },
+									"beteckning": { "type": "string", "index": "not_analyzed" },
+									"kammarbeslutstyp": { "type": "string", "index": "not_analyzed" },
+									"kammaren": { "type": "string", "index": "not_analyzed" },
+									"lydelse": { "type": "string", "analyzer": "swedish" },
+									"lydelse2": { "type": "string", "analyzer": "swedish" },
+									"nummer": { "type": "integer" },
+									"utskottet": { "type": "string", "index": "not_analyzed" }
+								}
+							}
+						}
+					},
+					"dokintressent": {
+						"type": "nested",
+						"properties": {
+							"intressent": {
+								"properties": {
+									"intressent_id": { "type": "string", "index": "not_analyzed" },
+									"namn": { "type": "string", "index": "not_analyzed" },
+									"ordning": { "type": "string", "index": "not_analyzed" },
+									"partibet": { "type": "string", "index": "not_analyzed" },
+									"roll": { "type": "string", "index": "not_analyzed" }
+								}
+							}
+						}
+					},
+					"dokreferens": {
+						"properties": {
+							"referens": {
+								"properties": {
+									"ref_dok_titel": { "type": "string", "index": "not_analyzed" },
+									"uppgift": { "type": "string", "index": "not_analyzed" }
+								}
+							}
+						}
+					},
+					"dokument": {
+						"properties": {
+							"beteckning": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"datum": {
+								"type": "date",
+								"format": "YYYY-MM-DD HH:mm:ss"
+							},
+							"dok_id": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"doktyp": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"dokument_url_html": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"dokument_url_text": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"dokumentstatus_url_xml": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"hangar_id": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"html": {
+								"type": "multi_field",
+								"fields": {
+									"html_filtered": {
+										"include_in_all": "true",
+										"type": "string",
+										"analyzer": "custom_html_analyzer"
+									},
+									"html_shingles": {
+										"include_in_all": "false",
+										"type": "string",
+										"analyzer": "custom_shingle_analyzer"
+									}
+								}
+							},
+							"text": {
+								"type": "multi_field",
+								"fields": {
+									"text": {
+										"include_in_all": "true",
+										"type": "string",
+										"analyzer": "swedish"
+									},
+									"text_shingles": {
+										"include_in_all": "false",
+										"type": "string",
+										"analyzer": "custom_shingle_analyzer"
+									}
+								}
+							},
+							"htmlformat": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"mottagare": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"nummer": {
+								"type": "integer"
+							},
+							"organ": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"publicerad": {
+								"type": "date",
+								"format": "YYYY-MM-DD HH:mm:ss"
+							},
+							"related_id": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"rm": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"slutnummer": {
+								"type": "integer"
+							},
+							"source": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"sourceid": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"status": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"subtitel": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"subtyp": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"systemdatum": {
+								"type": "date",
+								"format": "YYYY-MM-DD HH:mm:ss"
+							},
+							"tempbeteckning": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"titel": {
+								"type": "multi_field",
+								"fields": {
+									"titel": {
+										"include_in_all": "true",
+										"type": "string",
+										"analyzer": "swedish"
+									},
+									"titel_not_analyzed": {
+										"include_in_all": "false",
+										"type": "string",
+										"index": "not_analyzed"
+									}
+								}
+							},
+							"typ": {
+								"type": "string",
+								"index": "not_analyzed"
+							},
+							"uppgift": {
+								"properties": {
+									"kod": { "type": "string", "index": "not_analyzed" },
+									"namn": { "type": "string", "index": "not_analyzed" },
+									"text": { "type": "string", "index": "not_analyzed" }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	]
+}

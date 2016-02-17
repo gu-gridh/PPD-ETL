@@ -1,0 +1,52 @@
+{
+	"api_url": "http://data.riksdagen.se/dataset/",
+	"document_types": [
+		"anföranden",
+		"motioner"
+	],
+	"api_info": {
+		"anföranden": {
+			"url_path": "anforande/",
+			"file_ending": ".json.zip",
+			"links": [
+				"anforande-201516",
+				"anforande-201415",
+				"anforande-201314",
+				"anforande-201213",
+				"anforande-201112",
+				"anforande-201011",
+				"anforande-200910",
+				"anforande-200809",
+				"anforande-200708",
+				"anforande-200607",
+				"anforande-200506",
+				"anforande-200405",
+				"anforande-200304",
+				"anforande-200203",
+				"anforande-200102",
+				"anforande-200001",
+				"anforande-19992000",
+				"anforande-199899",
+				"anforande-199798",
+				"anforande-199697",
+				"anforande-199596",
+				"anforande-199495",
+				"anforande-199394"
+			]
+		},
+		"motioner": {
+			"url_path": "dokument/",
+			"file_ending": ".json.zip",
+			"links": [
+				"mot-2014-2017",
+				"mot-2010-2013",
+				"mot-2006-2009",
+				"mot-2002-2005",
+				"mot-1998-2001",
+				"mot-1990-1997",
+				"mot-1980-1989",
+				"mot-1971-1979"
+			]
+		}
+	}
+}
