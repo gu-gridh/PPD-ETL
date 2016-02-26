@@ -174,6 +174,9 @@ def load_data():
 	for doc_type in es_settings['document_types']:
 
 		print('Inserting type: ' + doc_type['name'] + '\n')
+
+		# Set hard limit
+		hard_limit = float('inf') if doc_type['hard_limit'] == None else doc_type['hard_limit']
 	
 		counter = 0
 		old_count = 0
@@ -209,6 +212,10 @@ def load_data():
 				
 				old_count = counter + 1
 				insert_str = ''
+
+			# Check hard limit
+			if counter >= hard_limit:
+				break
 
 		# Insert last bulk.
 		print('Inserting entries: ' + str(old_count) + '-' + str(counter))
