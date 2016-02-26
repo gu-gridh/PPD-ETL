@@ -13,6 +13,7 @@ Simple CLI tool for downloading data from [Rikdagens öppna data](http://data.ri
 Activate environment and install required python libraries.
 
 ```bash
+$ virtualenv env
 $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
