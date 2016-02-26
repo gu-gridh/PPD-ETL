@@ -218,9 +218,10 @@ def load_data():
 				break
 
 		# Insert last bulk.
-		print('Inserting entries: ' + str(old_count) + '-' + str(counter))
-		es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
-		print('\n')
+		if counter >= old_count:
+			print('Inserting entries: ' + str(old_count) + '-' + str(counter))
+			es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
+			print('\n')
 
 
 
