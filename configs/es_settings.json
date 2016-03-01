@@ -12,6 +12,10 @@
 					"type": "shingle",
 					"min_shingle_size": 2,
 					"max_shingle_size": 5
+				},
+				"custom_stop_filter": {
+					"type": "stop",
+					"enable_position_increments": false
 				}
 			},
 			"analyzer": {
@@ -20,6 +24,7 @@
 					"tokenizer": "standard",
 					"language": "swedish",
 					"filter": [
+						"standard",
 						"lowercase",
 						"custom_shingle_filter"
 					],
@@ -64,7 +69,7 @@
 					"anforandetext": {
 						"type": "string",
 						"analyzer": "custom_shingle_analyzer",
-						"index_options": "docs"
+						"output_unigrams": true
 						
 					},
 					"avsnittsrubrik": {
@@ -278,10 +283,7 @@
 							"html": {
 								"type": "string",
 								"analyzer": "custom_shingle_analyzer",
-								"index_options": "docs",
-								"fielddata": {
-									"loading" : "eager" 
-								}
+								"output_unigrams": true
 							},
 							"text": {
 								"type": "string",
