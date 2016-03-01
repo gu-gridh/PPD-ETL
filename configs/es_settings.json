@@ -48,16 +48,18 @@
 		{
 			"name": "type_anforande",
 			"data_folder": "anföranden",
-			"hard_limit": 50000,
+			"hard_limit": 10000,
 			"ignore_initial_key": "anforande",
 			"mappings": {
 				"properties": {
 					"anforande_id": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"anforande_nummer": { 
-						"type": "integer" 
+						"type": "integer",
+						"doc_values": true
 					},
 					"anforandetext": {
 						"type": "multi_field",
@@ -76,85 +78,78 @@
 						
 					},
 					"avsnittsrubrik": {
-						"type": "multi_field",
-						"fields": {
-							"avsnittsrubrik": {
-								"include_in_all": "true",
-								"type": "string",
-								"analyzer": "swedish"
-							},
-							"avsnittsrubrik_not_analyzed": {
-								"include_in_all": "false",
-								"type": "string",
-								"index": "not_analyzed"
-							}
-						}
+						"type": "string",
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dokument_namn": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dok_datum": {
 						"type": "date",
-						"format": "YYYY-MM-DD HH:mm:ss"
+						"format": "YYYY-MM-DD HH:mm:ss",
+						"doc_values": true
 					},
 					"dok_hangar_id": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dok_id": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dok_nummer": {
-						"type": "integer"
+						"type": "integer",
+						"doc_values": true
 					},
 					"dok_rm": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dok_titel": {
-						"type": "multi_field",
-						"fields": {
-							"dok_titel": {
-								"include_in_all": "true",
-								"type": "string",
-								"analyzer": "swedish"
-							},
-							"dok_titel_not_analyzed": {
-								"include_in_all": "false",
-								"type": "string",
-								"index": "not_analyzed"
-							}
-						}
+						"type": "string",
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"intressent_id": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"kammaraktivitet": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"parti": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"rel_dok_id": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"replik": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"systemdatum": {
 						"type": "date",
-						"format": "YYYY-MM-DD HH:mm:ss"
+						"format": "YYYY-MM-DD HH:mm:ss",
+						"doc_values": true
 					},
 					"talare": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					}
 				}
 			}
@@ -162,29 +157,31 @@
 		{
 			"name": "type_motion",
 			"data_folder": "motioner",
-			"hard_limit": 50000,
+			"hard_limit": 10000,
 			"ignore_initial_key": "dokumentstatus",
 			"mappings": {
 				"properties": {
 					"debatt": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dokument_namn": {
 						"type": "string",
-						"index": "not_analyzed"
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"dokaktivitet": {
 						"type": "nested",
 						"properties": {
 							"aktivitet": {
 								"properties": {
-									"kod": { "type": "string", "index": "not_analyzed" },
-									"datum": { "type": "date", "format": "YYYY-MM-DD HH:mm:ss" },
-									"status": { "type": "string", "index": "not_analyzed" },
-									"process": { "type": "string", "index": "not_analyzed" },
-									"namn": { "type": "string", "index": "not_analyzed" },
-									"ordning": { "type": "string", "index": "not_analyzed" }
+									"kod": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"datum": { "type": "date", "format": "YYYY-MM-DD HH:mm:ss", "doc_values": true },
+									"status": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"process": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"namn": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"ordning": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
@@ -194,13 +191,13 @@
 						"properties": {
 							"bilaga": {
 								"properties": {
-									"titel": { "type": "string", "index": "not_analyzed" },
-									"filnamn": { "type": "string", "index": "not_analyzed" },
-									"dok_id": { "type": "string", "index": "not_analyzed" },
-									"fil_url": { "type": "string", "index": "not_analyzed" },
-									"filstorlek": { "type": "integer" },
-									"filtyp": { "type": "string", "index": "not_analyzed" },
-									"subtitel": { "type": "string", "index": "not_analyzed" }
+									"titel": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"filnamn": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"dok_id": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"fil_url": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"filstorlek": { "type": "integer", "doc_values": true },
+									"filtyp": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"subtitel": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
@@ -210,14 +207,14 @@
 						"properties": {
 							"forslag": {
 								"properties": {
-									"behandlas_i": { "type": "string", "index": "not_analyzed" },
-									"beteckning": { "type": "string", "index": "not_analyzed" },
-									"kammarbeslutstyp": { "type": "string", "index": "not_analyzed" },
-									"kammaren": { "type": "string", "index": "not_analyzed" },
+									"behandlas_i": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"beteckning": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"kammarbeslutstyp": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"kammaren": { "type": "string", "index": "not_analyzed", "doc_values": true },
 									"lydelse": { "type": "string", "analyzer": "swedish" },
 									"lydelse2": { "type": "string", "analyzer": "swedish" },
-									"nummer": { "type": "integer" },
-									"utskottet": { "type": "string", "index": "not_analyzed" }
+									"nummer": { "type": "integer", "doc_values": true },
+									"utskottet": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
@@ -227,11 +224,11 @@
 						"properties": {
 							"intressent": {
 								"properties": {
-									"intressent_id": { "type": "string", "index": "not_analyzed" },
-									"namn": { "type": "string", "index": "not_analyzed" },
-									"ordning": { "type": "string", "index": "not_analyzed" },
-									"partibet": { "type": "string", "index": "not_analyzed" },
-									"roll": { "type": "string", "index": "not_analyzed" }
+									"intressent_id": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"namn": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"ordning": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"partibet": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"roll": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
@@ -240,8 +237,8 @@
 						"properties": {
 							"referens": {
 								"properties": {
-									"ref_dok_titel": { "type": "string", "index": "not_analyzed" },
-									"uppgift": { "type": "string", "index": "not_analyzed" }
+									"ref_dok_titel": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"uppgift": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
@@ -250,35 +247,43 @@
 						"properties": {
 							"beteckning": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"datum": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss"
+								"format": "YYYY-MM-DD HH:mm:ss",
+								"doc_values": true
 							},
 							"dok_id": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"doktyp": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"dokument_url_html": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"dokument_url_text": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"dokumentstatus_url_xml": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"hangar_id": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"html": {
 								"type": "multi_field",
@@ -297,101 +302,97 @@
 							},
 							"text": {
 								"type": "multi_field",
-								"fields": {
-									"text": {
-										"include_in_all": "true",
-										"type": "string",
-										"analyzer": "swedish"
-									},
-									"text_shingles": {
-										"include_in_all": "false",
-										"type": "string",
-										"analyzer": "custom_shingle_analyzer"
-									}
-								}
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"htmlformat": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"mottagare": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"nummer": {
-								"type": "integer"
+								"type": "integer",
+								"doc_values": true
 							},
 							"organ": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"publicerad": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss"
+								"format": "YYYY-MM-DD HH:mm:ss",
+								"doc_values": true
 							},
 							"related_id": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"rm": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"slutnummer": {
-								"type": "integer"
+								"type": "integer",
+								"doc_values": true
 							},
 							"source": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"sourceid": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"status": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"subtitel": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"subtyp": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"systemdatum": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss"
+								"format": "YYYY-MM-DD HH:mm:ss",
+								"doc_values": true
 							},
 							"tempbeteckning": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"titel": {
-								"type": "multi_field",
-								"fields": {
-									"titel": {
-										"include_in_all": "true",
-										"type": "string",
-										"analyzer": "swedish"
-									},
-									"titel_not_analyzed": {
-										"include_in_all": "false",
-										"type": "string",
-										"index": "not_analyzed"
-									}
-								}
+								"type": "string",
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"typ": {
 								"type": "string",
-								"index": "not_analyzed"
+								"index": "not_analyzed",
+								"doc_values": true
 							},
 							"uppgift": {
 								"properties": {
-									"kod": { "type": "string", "index": "not_analyzed" },
-									"namn": { "type": "string", "index": "not_analyzed" },
-									"text": { "type": "string", "index": "not_analyzed" }
+									"kod": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"namn": { "type": "string", "index": "not_analyzed", "doc_values": true },
+									"text": { "type": "string", "index": "not_analyzed", "doc_values": true }
 								}
 							}
 						}
