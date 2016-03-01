@@ -62,19 +62,9 @@
 						"doc_values": true
 					},
 					"anforandetext": {
-						"type": "multi_field",
-						"fields": {
-							"anforandetext": {
-								"include_in_all": "true",
-								"type": "string",
-								"analyzer": "swedish"
-							},
-							"anforandetext_shingles": {
-								"include_in_all": "false",
-								"type": "string",
-								"analyzer": "custom_shingle_analyzer"
-							}
-						}
+						"type": "string",
+						"analyzer": "custom_shingle_analyzer",
+						"omit_term_freq_and_positions": true
 						
 					},
 					"avsnittsrubrik": {
@@ -286,18 +276,11 @@
 								"doc_values": true
 							},
 							"html": {
-								"type": "multi_field",
-								"fields": {
-									"html_filtered": {
-										"include_in_all": "true",
-										"type": "string",
-										"analyzer": "custom_html_analyzer"
-									},
-									"html_shingles": {
-										"include_in_all": "false",
-										"type": "string",
-										"analyzer": "custom_shingle_analyzer"
-									}
+								"type": "string",
+								"analyzer": "custom_shingle_analyzer",
+								"omit_term_freq_and_positions": true,
+								"fielddata": {
+									"loading" : "eager" 
 								}
 							},
 							"text": {
