@@ -64,7 +64,7 @@
 					"anforandetext": {
 						"type": "string",
 						"analyzer": "custom_shingle_analyzer",
-						"omit_term_freq_and_positions": true
+						"index_options": "docs"
 						
 					},
 					"avsnittsrubrik": {
@@ -278,7 +278,7 @@
 							"html": {
 								"type": "string",
 								"analyzer": "custom_shingle_analyzer",
-								"omit_term_freq_and_positions": true,
+								"index_options": "docs",
 								"fielddata": {
 									"loading" : "eager" 
 								}
