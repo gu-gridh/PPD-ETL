@@ -12,10 +12,6 @@
 					"type": "shingle",
 					"min_shingle_size": 2,
 					"max_shingle_size": 5
-				},
-				"custom_stop_filter": {
-					"type": "stop",
-					"enable_position_increments": false
 				}
 			},
 			"analyzer": {
