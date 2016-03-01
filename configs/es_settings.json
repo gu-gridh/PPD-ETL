@@ -11,7 +11,8 @@
 				"custom_shingle_filter": {
 					"type": "shingle",
 					"min_shingle_size": 2,
-					"max_shingle_size": 5
+					"max_shingle_size": 5,
+					"output_unigrams": false
 				}
 			},
 			"analyzer": {
@@ -64,9 +65,12 @@
 					},
 					"anforandetext": {
 						"type": "string",
-						"analyzer": "custom_shingle_analyzer",
-						"output_unigrams": true
-						
+						"fields": {
+							"shingles": {
+								"type": "string",
+								"analyzer": "custom_shingle_analyzer"
+							}
+						}
 					},
 					"avsnittsrubrik": {
 						"type": "string",
@@ -278,8 +282,12 @@
 							},
 							"html": {
 								"type": "string",
-								"analyzer": "custom_shingle_analyzer",
-								"output_unigrams": true
+								"fields": {
+									"shingles": {
+										"type": "string",
+										"analyzer": "custom_shingle_analyzer"
+									}
+								}
 							},
 							"text": {
 								"type": "string",
