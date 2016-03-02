@@ -173,55 +173,57 @@ def load_data():
 	# Bulk insert document into ES index.
 	for doc_type in es_settings['document_types']:
 
-		print('Inserting type: ' + doc_type['name'] + '\n')
+		if doc_type['load_data']:
 
-		# Set hard limit
-		hard_limit = float('inf') if doc_type['hard_limit'] == None else doc_type['hard_limit']
-	
-		counter = 0
-		old_count = 0
-		insert_str = ''
-		for f in os.listdir(PATH_DATA_FOLDERS + doc_type['data_folder']):
-			counter += 1
+			print('Inserting type: ' + doc_type['name'] + '\n')
 
-			# Parse file names for error control.
-			'''
-			if not re.match("^[a-öA-Ö0-9_]*$", f[:-5]):
-				f_new = ''.join(e for e in f[:-5] if e.isalnum())
-			else:
-				f_new = f[:-5]
-			'''
+			# Set hard limit
+			hard_limit = float('inf') if doc_type['hard_limit'] == None else doc_type['hard_limit']
 
-			# Prepare bulk to insert.
-			data_file = codecs.open(PATH_DATA_FOLDERS + doc_type['data_folder'] + '/' + f, 'r', 'utf-8-sig')
-			json_obj = json.loads(remove_comments(data_file.read()))[doc_type['ignore_initial_key']]
-			json_obj[es_settings['document_name_field_key']] = f
-			insert_str += json.dumps({'index': {'_index': es_settings['index_name'], '_type': doc_type['name']}}) + '\n'
-			insert_str += json.dumps(json_obj) + '\n'
+			counter = 0
+			old_count = 0
+			insert_str = ''
+			for f in os.listdir(PATH_DATA_FOLDERS + doc_type['data_folder']):
+				counter += 1
 
-			# Insert bulk.
-			if (counter % es_settings['bulk_insert_rate']) == 0:
+				# Parse file names for error control.
+				'''
+				if not re.match("^[a-öA-Ö0-9_]*$", f[:-5]):
+					f_new = ''.join(e for e in f[:-5] if e.isalnum())
+				else:
+					f_new = f[:-5]
+				'''
+
+				# Prepare bulk to insert.
+				data_file = codecs.open(PATH_DATA_FOLDERS + doc_type['data_folder'] + '/' + f, 'r', 'utf-8-sig')
+				json_obj = json.loads(remove_comments(data_file.read()))[doc_type['ignore_initial_key']]
+				json_obj[es_settings['document_name_field_key']] = f
+				insert_str += json.dumps({'index': {'_index': es_settings['index_name'], '_type': doc_type['name']}}) + '\n'
+				insert_str += json.dumps(json_obj) + '\n'
+
+				# Insert bulk.
+				if (counter % es_settings['bulk_insert_rate']) == 0:
+					print('Inserting entries: ' + str(old_count) + '-' + str(counter))
+
+					try:
+						es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
+					except requests.exceptions.RequestException as e:
+						print(e)
+						print('Post query failed.\n')
+						sys.exit(1)
+					
+					old_count = counter + 1
+					insert_str = ''
+
+				# Check hard limit
+				if counter >= hard_limit:
+					break
+
+			# Insert last bulk.
+			if counter >= old_count:
 				print('Inserting entries: ' + str(old_count) + '-' + str(counter))
-
-				try:
-					es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
-				except requests.exceptions.RequestException as e:
-					print(e)
-					print('Post query failed.\n')
-					sys.exit(1)
-				
-				old_count = counter + 1
-				insert_str = ''
-
-			# Check hard limit
-			if counter >= hard_limit:
-				break
-
-		# Insert last bulk.
-		if counter >= old_count:
-			print('Inserting entries: ' + str(old_count) + '-' + str(counter))
-			es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
-			print('\n')
+				es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
+				print('\n')
 
 
 

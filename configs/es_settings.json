@@ -49,10 +49,14 @@
 	"document_types": [
 		{
 			"name": "type_anforande",
+			"load_data": true,
 			"data_folder": "anföranden",
-			"hard_limit": 10000,
+			"hard_limit": null,
 			"ignore_initial_key": "anforande",
 			"mappings": {
+				"_all": {
+					"enabled": false
+				},
 				"properties": {
 					"anforande_id": {
 						"type": "string",
@@ -68,7 +72,11 @@
 						"fields": {
 							"shingles": {
 								"type": "string",
-								"analyzer": "custom_shingle_analyzer"
+								"analyzer": "custom_shingle_analyzer",
+								"norms": {
+									"enabled": false
+								},
+								"index_options": "docs"
 							}
 						}
 					},
@@ -151,10 +159,14 @@
 		},
 		{
 			"name": "type_motion",
+			"load_data": true,
 			"data_folder": "motioner",
-			"hard_limit": 10000,
+			"hard_limit": null,
 			"ignore_initial_key": "dokumentstatus",
 			"mappings": {
+				"_all": {
+					"enabled": false
+				},
 				"properties": {
 					"debatt": {
 						"type": "string",
@@ -285,14 +297,17 @@
 								"fields": {
 									"shingles": {
 										"type": "string",
-										"analyzer": "custom_shingle_analyzer"
+										"analyzer": "custom_shingle_analyzer",
+										"norms": {
+											"enabled": false
+										},
+										"index_options": "docs"
 									}
 								}
 							},
 							"text": {
 								"type": "string",
-								"index": "not_analyzed",
-								"doc_values": true
+								"index": "no"
 							},
 							"htmlformat": {
 								"type": "string",
