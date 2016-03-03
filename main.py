@@ -30,7 +30,7 @@ PATH_DATA_FOLDERS = 'data/'
 ###
 
 @click.group(
-	help='This is a command line interface for fetching and loading data from Riksdagens Öppna API into an Elasticsearch instance.'
+	help='This is a command line interface for fetching and loading data from Riksdagens API into an Elasticsearch instance.'
 )
 def cli():
 	pass
@@ -136,7 +136,7 @@ def remove_index(index):
 	# Delete the index.
 	es_delete_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + index, (user, pw))
 
-@click.command(help='Fetch all data from Riksdagens Öppna API.')
+@click.command(help='Fetch all data from Riksdagens API.')
 def fetch_data():
 
 	# Get configurations.
@@ -153,7 +153,7 @@ def fetch_data():
 		for link in fetch_settings['api_info'][doc_type]['links']:
 			print('Fetching: ' + link + fetch_settings['api_info'][doc_type]['file_ending'])
 
-			# Get data from Riksdagens Öppna API and extract the content int data folder.
+			# Get data from Riksdagens API and extract the content int data folder.
 			response = data_request(fetch_settings['api_url'] + fetch_settings['api_info'][doc_type]['url_path'] + link + fetch_settings['api_info'][doc_type]['file_ending'])
 			extract_files(response.content, PATH_DATA_FOLDERS + doc_type)
 
@@ -185,14 +185,6 @@ def load_data():
 			insert_str = ''
 			for f in os.listdir(PATH_DATA_FOLDERS + doc_type['data_folder']):
 				counter += 1
-
-				# Parse file names for error control.
-				'''
-				if not re.match("^[a-öA-Ö0-9_]*$", f[:-5]):
-					f_new = ''.join(e for e in f[:-5] if e.isalnum())
-				else:
-					f_new = f[:-5]
-				'''
 
 				# Prepare bulk to insert.
 				data_file = codecs.open(PATH_DATA_FOLDERS + doc_type['data_folder'] + '/' + f, 'r', 'utf-8-sig')
