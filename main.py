@@ -81,14 +81,14 @@ def get_index_info():
 		}),
 		credentials=(user, pw)
 	)
-	type_info = json.loads(response.content.decode('UTF-8'))
+	type_info = json.loads(response.content.decode('utf8'))
 
 	for bucket in type_info['aggregations']['count_by_type']['buckets']:
 		print('Type: ' + bucket['key'] + '\t' + 'Count: ' + str(bucket['doc_count']))
 	
 	# Get index storage size
 	response = es_get_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + es_settings['index_name'] + "/_stats/store", data=None, credentials=(user, pw))
-	index_info = json.loads(response.content.decode('UTF-8'))
+	index_info = json.loads(response.content.decode('utf8'))
 
 	print('Index storage size: ' + '{:.2f}'.format(index_info['indices'][es_settings['index_name']]['total']['store']['size_in_bytes']/1000000) + ' MB')
 	print('')
@@ -231,7 +231,7 @@ def es_get_query(url, data=None, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 
@@ -243,7 +243,7 @@ def es_post_query(url, data=None, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 	else:
@@ -255,7 +255,7 @@ def es_delete_query(url, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 	else:
@@ -307,7 +307,7 @@ def data_request(url):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 
