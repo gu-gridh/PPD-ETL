@@ -255,8 +255,7 @@
 							},
 							"datum": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss",
-								"doc_values": true
+								"format": "YYYY-MM-DD HH:mm:ss"
 							},
 							"dok_id": {
 								"type": "string",
