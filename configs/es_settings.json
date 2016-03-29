@@ -302,6 +302,7 @@
 								"fielddata": {
 									"loading" : "eager_global_ordinals" 
 								},
+								"analyzer": "custom_html_analyzer",
 								"fields": {
 									"shingles": {
 										"type": "string",
