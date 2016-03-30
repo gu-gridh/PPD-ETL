@@ -12,14 +12,13 @@
 					"type": "shingle",
 					"min_shingle_size": 2,
 					"max_shingle_size": 4,
-					"output_unigrams": false
+					"output_unigrams": true
 				}
 			},
 			"analyzer": {
 				"custom_shingle_analyzer": {
 					"type": "custom",
 					"tokenizer": "standard",
-					"language": "swedish",
 					"filter": [
 						"standard",
 						"lowercase",
@@ -32,12 +31,9 @@
 				"custom_html_analyzer": {
 					"type": "custom",
 					"tokenizer" : "standard",
-					"language": "swedish",
 					"filter" : [
 						"standard",
-						"lowercase",
-						"stop",
-						"asciifolding"
+						"lowercase"
 					],
 					"char_filter" : [
 						"html_strip"
