@@ -28,6 +28,20 @@
 						"html_strip"
 					]
 				},
+				"custom_shingle_analyzer_reversed": {
+					"type": "custom",
+					"tokenizer": "standard",
+					"filter": [
+						"standard",
+						"lowercase",
+						"reverse",
+						"custom_shingle_filter",
+						"reverse"
+					],
+					"char_filter" : [
+						"html_strip"
+					]
+				},
 				"custom_html_analyzer": {
 					"type": "custom",
 					"tokenizer" : "standard",
@@ -306,6 +320,13 @@
 											"loading" : "eager_global_ordinals" 
 										},
 										"analyzer": "custom_shingle_analyzer"
+									},
+									"shingles_reversed": {
+										"type": "string",
+										"fielddata": {
+											"loading" : "eager_global_ordinals" 
+										},
+										"analyzer": "custom_shingle_analyzer_reversed"
 									}
 								}
 							},
