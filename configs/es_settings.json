@@ -240,8 +240,18 @@
 									"intressent_id": { "type": "string", "index": "not_analyzed", "doc_values": true },
 									"namn": {
 										"type": "string",
+										"analyzer": "standard",
 										"fielddata": {
 											"loading" : "eager_global_ordinals" 
+										},
+										"fields": {
+											"shingles": {
+												"type": "string",
+												"fielddata": {
+													"loading" : "eager_global_ordinals" 
+												},
+												"analyzer": "custom_shingle_analyzer"
+											}
 										}
 									},
 									"ordning": { "type": "string", "index": "not_analyzed", "doc_values": true },
@@ -408,7 +418,20 @@
 								"doc_values": true
 							},
 							"titel": {
-								"type": "string"
+								"type": "string",
+								"analyzer": "standard",
+								"fielddata": {
+									"loading" : "eager_global_ordinals" 
+								},
+								"fields": {
+									"shingles": {
+										"type": "string",
+										"fielddata": {
+											"loading" : "eager_global_ordinals" 
+										},
+										"analyzer": "custom_shingle_analyzer"
+									}
+								}
 							},
 							"typ": {
 								"type": "string",
