@@ -133,6 +133,9 @@ def remove_index(index):
 	# Check authentication and prompt for credentials if needed.
 	user, pw = get_credentials(es_settings['shield_authentication'])
 
+	# Clear cache
+	es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + index + "/_cache/clear", None, (user, pw))
+
 	# Delete the index.
 	es_delete_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + index, (user, pw))
 
@@ -225,6 +228,38 @@ def load_data():
 				es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/_bulk', insert_str, (user, pw))
 				print('\n')
 
+@click.command(help='Remove and create index for search queries.')
+def clean_query_index(index):
+	
+	# Get configuration.
+	es_settings = get_es_config()
+
+	# Check authentication and prompt for credentials if needed.
+	user, pw = get_credentials(es_settings['shield_authentication'])
+
+	# Variables
+	queries_index = 'queries'
+
+	# Delete the index.
+	response = requests.get(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + queries_index, data=None, auth=(user, pw))
+	print(response.status_code)
+
+	# If index exist, delete it.
+
+
+	# Create index
+
+	queries_mapping_settings = json.dumps(
+		"mappings": {
+			"type_search_query": {
+				"properties": {
+					"term": {"type": "string", "index": "not_analyzed"},
+					"type": {"type": "string", "index": "not_analyzed"},
+					"date": {"type": "date", "format": "yyyy-MM-dd HH:mm:ss"}
+				}
+			}
+		}
+	)
 
 
 ###

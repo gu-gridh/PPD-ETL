@@ -1,7 +1,7 @@
 {
-	"host_url": "http://localhost",
-	"host_port": "9200",
-	"shield_authentication": false,
+	"host_url": "http://http://cdh-vir-1.it.gu.se",
+	"host_port": "8003",
+	"shield_authentication": true,
 	"bulk_insert_rate": 1000,
 	"index_name": "ppd",
 	"document_name_field_key": "dokument_namn",
