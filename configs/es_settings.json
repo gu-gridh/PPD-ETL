@@ -98,7 +98,7 @@
 					},
 					"dok_datum": {
 						"type": "date",
-						"format": "YYYY-MM-DD HH:mm:ss",
+						"format": "yyyy-MM-dd HH:mm:ss",
 						"doc_values": true
 					},
 					"dok_hangar_id": {
@@ -152,7 +152,7 @@
 					},
 					"systemdatum": {
 						"type": "date",
-						"format": "YYYY-MM-DD HH:mm:ss",
+						"format": "yyyy-MM-dd HH:mm:ss",
 						"doc_values": true
 					},
 					"talare": {
@@ -190,7 +190,7 @@
 							"aktivitet": {
 								"properties": {
 									"kod": { "type": "string", "index": "not_analyzed", "doc_values": true },
-									"datum": { "type": "date", "format": "YYYY-MM-DD HH:mm:ss", "doc_values": true },
+									"datum": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss", "doc_values": true },
 									"status": { "type": "string", "index": "not_analyzed", "doc_values": true },
 									"process": { "type": "string", "index": "not_analyzed", "doc_values": true },
 									"namn": { "type": "string", "index": "not_analyzed", "doc_values": true },
@@ -275,7 +275,7 @@
 							},
 							"datum": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss"
+								"format": "yyyy-MM-dd HH:mm:ss"
 							},
 							"dok_id": {
 								"type": "string",
@@ -355,7 +355,7 @@
 							},
 							"publicerad": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss",
+								"format": "yyyy-MM-dd HH:mm:ss",
 								"doc_values": true
 							},
 							"related_id": {
@@ -399,7 +399,7 @@
 							},
 							"systemdatum": {
 								"type": "date",
-								"format": "YYYY-MM-DD HH:mm:ss",
+								"format": "yyyy-MM-dd HH:mm:ss",
 								"doc_values": true
 							},
 							"tempbeteckning": {
