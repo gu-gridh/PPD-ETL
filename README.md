@@ -27,6 +27,15 @@ $ source env/bin/activate
 $ python main.py
 ```
 
+### Force Pull
+
+Force pull repo.
+
+```bash
+$ git fetch --all
+$ git reset --hard origin/master
+```
+
 ### Commands
 
 * __check_connection:__ Check that the ES instance is up and running.
@@ -35,6 +44,7 @@ $ python main.py
 * __get_index_info:__ Get information from the index.
 * __load_data:__ Load data into ES.
 * __remove_index:__ Remove ES index and all data entries.
+* __clean_query_index:__ Remove and create index for search queries.
 
 ### Configuration Files
 

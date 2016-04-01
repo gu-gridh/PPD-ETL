@@ -1,5 +1,5 @@
 {
-	"host_url": "http://http://cdh-vir-1.it.gu.se",
+	"host_url": "http://cdh-vir-1.it.gu.se",
 	"host_port": "8003",
 	"shield_authentication": true,
 	"bulk_insert_rate": 1000,

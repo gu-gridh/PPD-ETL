@@ -221,7 +221,7 @@ def load_data():
 				print('\n')
 
 @click.command(help='Remove and create index for search queries.')
-def clean_query_index(index):
+def clean_query_index():
 	
 	# Get configuration.
 	es_settings = get_es_config()
@@ -234,23 +234,30 @@ def clean_query_index(index):
 
 	# Delete the index.
 	response = requests.get(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + queries_index, data=None, auth=(user, pw))
-	print(response.status_code)
 
 	# If index exist, delete it.
+	if response.status_code == 200:
+		# Clear cache
+		es_post_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + queries_index + "/_cache/clear", None, (user, pw))
 
+		# Delete the index.
+		es_delete_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + queries_index, (user, pw))
 
 	# Create index
-
-	queries_mapping_settings = json.dumps(
-		"mappings": {
-			"type_search_query": {
-				"properties": {
-					"term": {"type": "string", "index": "not_analyzed"},
-					"type": {"type": "string", "index": "not_analyzed"},
-					"date": {"type": "date", "format": "yyyy-MM-dd HH:mm:ss"}
+	es_post_query(
+		es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + queries_index, 
+		data=json.dumps({
+			"mappings": {
+				"type_search_query": {
+					"properties": {
+						"term": {"type": "string", "index": "not_analyzed"},
+						"type": {"type": "string", "index": "not_analyzed"},
+						"date": {"type": "date", "format": "yyyy-MM-dd HH:mm:ss"}
+					}
 				}
 			}
-		}
+		}), 
+		credentials=(user, pw)
 	)
 
 
@@ -374,6 +381,7 @@ if __name__ == '__main__':
 	cli.add_command(remove_index)
 	cli.add_command(fetch_data)
 	cli.add_command(load_data)
+	cli.add_command(clean_query_index)
 
 	print('\n')
 
