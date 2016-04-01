@@ -30,7 +30,7 @@ PATH_DATA_FOLDERS = 'data/'
 ###
 
 @click.group(
-	help='This is a command line interface for fetching and loading data from Riksdagens Öppna API into an Elasticsearch instance.'
+	help='This is a command line interface for fetching and loading data from Riksdagens API into an Elasticsearch instance.'
 )
 def cli():
 	pass
@@ -81,14 +81,14 @@ def get_index_info():
 		}),
 		credentials=(user, pw)
 	)
-	type_info = json.loads(response.content.decode('UTF-8'))
+	type_info = json.loads(response.content.decode('utf8'))
 
 	for bucket in type_info['aggregations']['count_by_type']['buckets']:
 		print('Type: ' + bucket['key'] + '\t' + 'Count: ' + str(bucket['doc_count']))
 	
 	# Get index storage size
 	response = es_get_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + es_settings['index_name'] + "/_stats/store", data=None, credentials=(user, pw))
-	index_info = json.loads(response.content.decode('UTF-8'))
+	index_info = json.loads(response.content.decode('utf8'))
 
 	print('Index storage size: ' + '{:.2f}'.format(index_info['indices'][es_settings['index_name']]['total']['store']['size_in_bytes']/1000000) + ' MB')
 	print('')
@@ -139,7 +139,7 @@ def remove_index(index):
 	# Delete the index.
 	es_delete_query(es_settings['host_url'] + ':' + es_settings['host_port'] + '/' + index, (user, pw))
 
-@click.command(help='Fetch all data from Riksdagens Öppna API.')
+@click.command(help='Fetch all data from Riksdagens API.')
 def fetch_data():
 
 	# Get configurations.
@@ -156,7 +156,7 @@ def fetch_data():
 		for link in fetch_settings['api_info'][doc_type]['links']:
 			print('Fetching: ' + link + fetch_settings['api_info'][doc_type]['file_ending'])
 
-			# Get data from Riksdagens Öppna API and extract the content int data folder.
+			# Get data from Riksdagens API and extract the content int data folder.
 			response = data_request(fetch_settings['api_url'] + fetch_settings['api_info'][doc_type]['url_path'] + link + fetch_settings['api_info'][doc_type]['file_ending'])
 			extract_files(response.content, PATH_DATA_FOLDERS + doc_type)
 
@@ -188,14 +188,6 @@ def load_data():
 			insert_str = ''
 			for f in os.listdir(PATH_DATA_FOLDERS + doc_type['data_folder']):
 				counter += 1
-
-				# Parse file names for error control.
-				'''
-				if not re.match("^[a-öA-Ö0-9_]*$", f[:-5]):
-					f_new = ''.join(e for e in f[:-5] if e.isalnum())
-				else:
-					f_new = f[:-5]
-				'''
 
 				# Prepare bulk to insert.
 				data_file = codecs.open(PATH_DATA_FOLDERS + doc_type['data_folder'] + '/' + f, 'r', 'utf-8-sig')
@@ -274,7 +266,7 @@ def es_get_query(url, data=None, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 
@@ -286,7 +278,7 @@ def es_post_query(url, data=None, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 	else:
@@ -298,7 +290,7 @@ def es_delete_query(url, credentials=(None, None)):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 	else:
@@ -350,7 +342,7 @@ def data_request(url):
 
 	if response.status_code != 200:
 		print('Reponse Code: ' + str(response.status_code))
-		print('Response Info: ' + response.content.decode('UTF-8'))
+		print('Response Info: ' + response.content.decode('utf8'))
 		print('URL: ' + url)
 		sys.exit(1)
 
