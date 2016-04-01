@@ -330,13 +330,6 @@
 											"loading" : "eager_global_ordinals" 
 										},
 										"analyzer": "custom_shingle_analyzer"
-									},
-									"shingles_reversed": {
-										"type": "string",
-										"fielddata": {
-											"loading" : "eager_global_ordinals" 
-										},
-										"analyzer": "custom_shingle_analyzer_reversed"
 									}
 								}
 							},
