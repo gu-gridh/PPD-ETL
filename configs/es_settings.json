@@ -243,15 +243,6 @@
 										"analyzer": "standard",
 										"fielddata": {
 											"loading" : "eager_global_ordinals" 
-										},
-										"fields": {
-											"shingles": {
-												"type": "string",
-												"fielddata": {
-													"loading" : "eager_global_ordinals" 
-												},
-												"analyzer": "custom_shingle_analyzer"
-											}
 										}
 									},
 									"ordning": { "type": "string", "index": "not_analyzed", "doc_values": true },
@@ -415,15 +406,6 @@
 								"analyzer": "standard",
 								"fielddata": {
 									"loading" : "eager_global_ordinals" 
-								},
-								"fields": {
-									"shingles": {
-										"type": "string",
-										"fielddata": {
-											"loading" : "eager_global_ordinals" 
-										},
-										"analyzer": "custom_shingle_analyzer"
-									}
 								}
 							},
 							"typ": {
