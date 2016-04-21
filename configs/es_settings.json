@@ -13,6 +13,10 @@
 					"min_shingle_size": 2,
 					"max_shingle_size": 4,
 					"output_unigrams": true
+				},
+				"swedish_stemmer": {
+					"type": "stemmer",
+					"language": "swedish"
 				}
 			},
 			"analyzer": {
@@ -27,27 +31,14 @@
 					"char_filter" : [
 						"html_strip"
 					]
-				},
-				"custom_shingle_analyzer_reversed": {
-					"type": "custom",
-					"tokenizer": "standard",
-					"filter": [
-						"standard",
-						"lowercase",
-						"reverse",
-						"custom_shingle_filter",
-						"reverse"
-					],
-					"char_filter" : [
-						"html_strip"
-					]
-				},
+				}
 				"custom_html_analyzer": {
 					"type": "custom",
 					"tokenizer" : "standard",
 					"filter" : [
 						"standard",
-						"lowercase"
+						"lowercase",
+						"swedish_stemmer"
 					],
 					"char_filter" : [
 						"html_strip"
@@ -310,6 +301,7 @@
 							},
 							"html": {
 								"type": "string",
+								"index_options": "offsets",
 								"fielddata": {
 									"loading" : "eager_global_ordinals" 
 								},
