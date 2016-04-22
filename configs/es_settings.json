@@ -23,7 +23,7 @@
 				"custom_shingle_analyzer": {
 					"type": "custom",
 					"tokenizer": "standard",
-					"filter": [
+					"token_filter": [
 						"standard",
 						"lowercase",
 						"custom_shingle_filter"
@@ -35,7 +35,7 @@
 				"custom_html_analyzer": {
 					"type": "custom",
 					"tokenizer" : "standard",
-					"filter" : [
+					"token_filter" : [
 						"standard",
 						"lowercase",
 						"swedish_stemmer"
