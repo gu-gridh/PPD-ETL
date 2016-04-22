@@ -70,12 +70,8 @@
 					},
 					"anforandetext": {
 						"type": "string",
-						"fields": {
-							"shingles": {
-								"type": "string",
-								"analyzer": "custom_shingle_analyzer"
-							}
-						}
+						"index": "not_analyzed",
+						"doc_values": true
 					},
 					"avsnittsrubrik": {
 						"type": "string",
