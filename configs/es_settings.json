@@ -31,7 +31,7 @@
 					"char_filter" : [
 						"html_strip"
 					]
-				}
+				},
 				"custom_html_analyzer": {
 					"type": "custom",
 					"tokenizer" : "standard",
