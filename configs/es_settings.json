@@ -12,11 +12,16 @@
 					"type": "shingle",
 					"min_shingle_size": 2,
 					"max_shingle_size": 4,
-					"output_unigrams": true
+					"output_unigrams": true,
+					"filler_token": ""
 				},
 				"swedish_stemmer": {
 					"type": "stemmer",
 					"language": "swedish"
+				},
+				"swedish_stop": {
+					"type": "stop",
+					"stopwords": "_swedish_"
 				}
 			},
 			"analyzer": {
@@ -26,6 +31,8 @@
 					"filter": [
 						"standard",
 						"lowercase",
+						"swedish_stop",
+						"swedish_stemmer",
 						"custom_shingle_filter"
 					],
 					"char_filter" : [
@@ -38,6 +45,7 @@
 					"filter" : [
 						"standard",
 						"lowercase",
+						"swedish_stop",
 						"swedish_stemmer"
 					],
 					"char_filter" : [
