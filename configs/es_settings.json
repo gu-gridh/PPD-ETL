@@ -30,7 +30,6 @@
 					"filter": [
 						"standard",
 						"lowercase",
-						"swedish_stemmer",
 						"custom_shingle_filter"
 					],
 					"char_filter" : [
