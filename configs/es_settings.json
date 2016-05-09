@@ -12,8 +12,7 @@
 					"type": "shingle",
 					"min_shingle_size": 2,
 					"max_shingle_size": 4,
-					"output_unigrams": true,
-					"filler_token": ""
+					"output_unigrams": true
 				},
 				"swedish_stemmer": {
 					"type": "stemmer",
@@ -31,7 +30,6 @@
 					"filter": [
 						"standard",
 						"lowercase",
-						"swedish_stop",
 						"swedish_stemmer",
 						"custom_shingle_filter"
 					],
