@@ -4,17 +4,15 @@ Simple CLI tool for downloading data from [Rikdagens öppna data](http://data.ri
 
 ### Requirements
 
-* Python 3.4.3
-* Pip 8.0.2
-* Virtualenv 13.1.2
+* Python 3.6
 
 ### Setup
 
 Activate environment and install required python libraries.
 
 ```bash
-$ virtualenv env
-$ source env/bin/activate
+$ python3 -m venv venv
+$ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
@@ -23,7 +21,7 @@ $ pip install -r requirements.txt
 Activate environment and run main file.
 
 ```bash
-$ source env/bin/activate
+$ source venv/bin/activate
 $ python main.py
 ```
 

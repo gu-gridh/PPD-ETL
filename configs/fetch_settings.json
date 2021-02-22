@@ -9,6 +9,10 @@
 			"url_path": "anforande/",
 			"file_ending": ".json.zip",
 			"links": [
+				"anforande-201920",
+				"anforande-201819",
+				"anforande-201718",
+				"anforande-201617",
 				"anforande-201516",
 				"anforande-201415",
 				"anforande-201314",
@@ -38,6 +42,7 @@
 			"url_path": "dokument/",
 			"file_ending": ".json.zip",
 			"links": [
+				"mot-2018-2021",
 				"mot-2014-2017",
 				"mot-2010-2013",
 				"mot-2006-2009",
