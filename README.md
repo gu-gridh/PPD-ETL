@@ -22,6 +22,8 @@ Activate environment and run main file.
 
 ```bash
 $ source venv/bin/activate
+$ export LC_ALL=en_US.utf-8
+$ export LANG=en_US.utf-8
 $ python main.py
 ```
 
@@ -43,6 +45,14 @@ $ git reset --hard origin/master
 * __load_data:__ Load data into ES.
 * __remove_index:__ Remove ES index and all data entries.
 * __clean_query_index:__ Remove and create index for search queries.
+
+#### Procedure for updating data
+
+1. `fetch_data`
+2. `remove_index` (enter index name `ppd`)
+3. `clean_query_index`
+4. `create_index`
+5. `load_data`
 
 ### Configuration Files
 
